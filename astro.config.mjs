@@ -7,7 +7,8 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  base: "/NathFolio/",
+  site: "https://enternathan.github.io",
+  base: "/NathFolio",
   integrations: [tailwind(), react()],
   vite: {
     resolve: {
