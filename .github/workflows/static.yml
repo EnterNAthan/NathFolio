@@ -1,12 +1,12 @@
-name: Deploy Astro site
+name: Deploy Astro site to Main
 
 on:
   push:
     branches:
-      - main  # Modifie selon ta branche principale
+      - main  # Exécute l'action uniquement quand il y a un push sur main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -23,8 +23,10 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: main
-          folder: dist
+      - name: Commit and Push built files
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add -A
+          git commit -m "🚀 Auto-deploy: Mise à jour du site" || echo "Pas de changement à commit"
+          git push origin main
