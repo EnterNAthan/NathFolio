@@ -3,7 +3,7 @@ name: Deploy Astro site to Main
 on:
   push:
     branches:
-      - main  # Exécute l'action uniquement quand il y a un push sur main
+      - main  # Exécute l'action à chaque push sur main
 
 jobs:
   deploy:
@@ -22,6 +22,11 @@ jobs:
 
       - name: Build Astro site
         run: npm run build
+
+      - name: Move build output to root (si nécessaire)
+        run: |
+          mv dist/* ./
+          rm -rf dist
 
       - name: Commit and Push built files
         run: |
